@@ -4,9 +4,15 @@ from gspread.worksheet import Worksheet
 from gspread.exceptions import WorksheetNotFound
 from typing import List
 from todoist_api_python.api import TodoistAPI
+import os
 
 def add_expenses_to_sheet(expenses:List[Expense], sheet_url:str, api:TodoistAPI):
-    service_account = gspread.service_account(filename='expenses/service_account.json')
+    # Get the absolute path to the script's directory
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+
+    # Construct the absolute path to service_account.json
+    service_account_path = os.path.join(script_directory, 'service_account.json')
+    service_account = gspread.service_account(filename=service_account_path)
     sheet = service_account.open_by_url(sheet_url)
     # row format:
     # DATE	REASON	CATEGORY	SOURCE	AMOUNT
