@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 from expenses.runner import (
     manage_expenses
 )
+from utils.sheets import (
+    status_update
+)
 from todoist_api_python.api import TodoistAPI
 
 # load env variables
@@ -17,3 +20,4 @@ API_KEY = os.getenv("TODOIST_API_TOKEN","")
 api = TodoistAPI(API_KEY)
 
 manage_expenses(api)
+status_update(os.getenv("EXPENSES_SHEET_URL"))
