@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List
+from todoist_api_python.models import Task
 
 class Expense:
     def __init__(
@@ -9,14 +10,15 @@ class Expense:
             reason,
             category,
             source,
-            task,
+            task:Task,
             ):
         self.date = date
-        self.amount = int(amount)
+        self.amount = float(amount)
         self.reason = str(reason).upper()
         self.category = str(category).upper()
         self.source = str(source).upper()
         self.task = task
+        self.description = task.description
 
     def short_print(self):
         return f"""DATE_TIME:{self.date}|AMOUNT:{self.amount}|{str(self.category).upper()}|{self.reason}|{self.source}"""
