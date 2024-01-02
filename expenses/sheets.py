@@ -47,7 +47,7 @@ def add_expenses_to_sheet(expenses:List[Expense], sheet_url:str, api:TodoistAPI)
             mastersheet.append_row(values=values)
             month_sheet.append_row(values=values)
             logger.info("Added to sheet:\n"+expense.short_print())
-            if DEBUG == False:
+            if not DEBUG:
                 if api.close_task(expense.task.id):
                     logger.info("Successfully closed expense task",expense.short_print())
         except Exception as e:
