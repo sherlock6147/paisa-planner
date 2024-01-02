@@ -1,4 +1,7 @@
 from todoist_api_python.api import TodoistAPI
+from custom_logger import get_logger
+
+logger = get_logger(__name__)
 
 def get_tasks(api:TodoistAPI, project_id, is_completed = False):
     tasks = api.get_tasks(project_id=project_id)
@@ -23,5 +26,5 @@ def choose_project(api:TodoistAPI):
     for index, proj in enumerate(projects, 1):
         print(f"{index}|{proj.name}")
     project = get_user_choice(projects)
-    print("Choosen Project: ",project)
+    logger.info("Choosen Project: ",project)
     return project

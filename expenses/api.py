@@ -4,8 +4,9 @@ from utils.api import (
 from models.Expense import Expense
 from datetime import datetime
 from todoist_api_python.api import TodoistAPI
-
+from custom_logger import get_logger
 DEFAULT_CATEGORY = "want"
+from typing import List
 
 SRC_MAP = {
     4:"Credit Card",
@@ -14,9 +15,12 @@ SRC_MAP = {
     1:"Cash"
 }
 
+logger = get_logger(__name__)
+
 def get_expenses(api:TodoistAPI, project_id):
+    logger.debug("Getting expenses")
     expense_tasks = get_tasks(api, project_id)
-    expenses = []
+    expenses:List[Expense] = []
     for task in expense_tasks:
         amount = task.content.split(' ')[0]
         reason = task.content[len(amount)+1:]
@@ -41,4 +45,5 @@ def get_expenses(api:TodoistAPI, project_id):
             task=task
             )
         expenses.append(expense)
+    logger.debug([exp.short_print() for exp in expenses])
     return expenses

@@ -21,10 +21,10 @@ class Expense:
         self.description = task.description
 
     def short_print(self):
-        return f"""DATE_TIME:{self.date}|AMOUNT:{self.amount}|{str(self.category).upper()}|{self.reason}|{self.source}"""
+        return "DATE_TIME:"+self.date.strftime("%d/%m/%Y,%H:%M:%S")+"|AMOUNT:"+str(self.amount)+"|"+str(self.category).upper()+"|"+self.reason+"|"+self.source + "\ndescription: " + self.description
 
     def __str__(self) -> str:
         return self.short_print(self)
 
     def to_values(self) -> List[str]:
-        return [self.date.strftime("%d/%m/%Y,%H:%M:%S"), self.reason, self.category, self.source, self.amount]
+        return [self.date.strftime("%d/%m/%Y,%H:%M:%S"), self.reason,self.description, self.category, self.source, self.amount]
